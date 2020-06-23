@@ -11,3 +11,6 @@
 #  endif
 #endif
 
+#ifdef WIN32
+#define WEBRTC_WIN 1
+#endif

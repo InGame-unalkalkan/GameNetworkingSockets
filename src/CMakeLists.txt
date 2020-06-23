@@ -86,6 +86,18 @@ if(USE_CRYPTO25519 STREQUAL "Reference")
 	)
 endif()
 
+if(USE_STEAMWEBRTC)
+	include_directories(${CMAKE_SOURCE_DIR}/webrtc/include)
+	link_libraries(${CMAKE_SOURCE_DIR}/webrtc/lib)
+	include_directories(${CMAKE_SOURCE_DIR}/webrtc/include/webrtc)
+	link_libraries(${CMAKE_SOURCE_DIR}/webrtc/lib)
+	set(GNS_SRCS ${GNS_SRCS}
+		"external/steamwebrtc/ice_session.h"
+		"external/steamwebrtc/steamwebrtc_internal.h"
+		"external/steamwebrtc/ice_session.cpp"
+	)
+endif(USE_STEAMWEBRTC)
+
 set(C99_FEATURES
 	c_restrict
 	c_function_prototypes)

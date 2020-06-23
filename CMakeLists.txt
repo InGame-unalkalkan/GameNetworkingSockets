@@ -21,6 +21,9 @@ configure_msvc_runtime()
 print_default_msvc_flags()
 
 add_definitions( -DVALVE_CRYPTO_ENABLE_25519 )
+if(WIN32)
+    add_definitions( -DNOMINMAX )
+endif(WIN32)
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	add_definitions(
 		-D_CRT_SECURE_NO_WARNINGS
@@ -28,6 +31,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		)
 endif()
 
+option(USE_STEAMWEBRTC "Build with a Webrtc library" ON)
 option(Protobuf_USE_STATIC_LIBS "Build with a static Protobuf library" OFF)
 option(LIGHT_TESTS "Use smaller/shorter tests for simple integration testing (e.g. Travis)" OFF)
 option(GAMENETWORKINGSOCKETS_BUILD_EXAMPLES "Build the included example chat program" ON)
