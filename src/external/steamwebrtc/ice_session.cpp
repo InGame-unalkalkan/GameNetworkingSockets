@@ -286,7 +286,7 @@ bool CICESession::BInitializeOnSocketThread( const ICESessionConfig &cfg )
 		candidate_filter |= cricket::CF_HOST;
 	if ( cfg.m_nCandidateTypes & k_EICECandidate_Any_Relay )
 		candidate_filter |= cricket::CF_RELAY;
-	port_allocator_flags_ |= cricket::PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE;
+	port_allocator_flags_ |= cricket::PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS;
 	if ( cfg.m_nCandidateTypes & k_EICECandidate_Any_IPv6 )
 	{
 		port_allocator_flags_ |= 
