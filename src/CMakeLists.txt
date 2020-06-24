@@ -87,15 +87,7 @@ if(USE_CRYPTO25519 STREQUAL "Reference")
 endif()
 
 if(USE_STEAMWEBRTC)
-	include_directories(${CMAKE_SOURCE_DIR}/webrtc/include)
-	link_libraries(${CMAKE_SOURCE_DIR}/webrtc/lib)
-	include_directories(${CMAKE_SOURCE_DIR}/webrtc/include/webrtc)
-	link_libraries(${CMAKE_SOURCE_DIR}/webrtc/lib)
-	set(GNS_SRCS ${GNS_SRCS}
-		"external/steamwebrtc/ice_session.h"
-		"external/steamwebrtc/steamwebrtc_internal.h"
-		"external/steamwebrtc/ice_session.cpp"
-	)
+	add_subdirectory(external/steamwebrtc)
 endif(USE_STEAMWEBRTC)
 
 set(C99_FEATURES
@@ -276,8 +268,11 @@ macro(gamenetworkingsockets_common GNS_TARGET)
 	endif()
 
 	set_target_properties(${GNS_TARGET} PROPERTIES
-		CXX_STANDARD 11
+		CXX_STANDARD 14
 		)
+
+	set_property(TARGET ${GNS_TARGET} PROPERTY
+		MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 endmacro()
 

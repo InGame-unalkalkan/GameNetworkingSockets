@@ -4,6 +4,8 @@ include(CMakeDependentOption)
 include(CMakePushCheckState)
 include(CheckSymbolExists)
 
+cmake_policy(SET CMP0091 NEW)
+
 project(GameNetworkingSockets C CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -15,10 +17,10 @@ if(SANITIZE_ADDRESS OR SANITIZE_THREAD OR SANITIZE_MEMORY OR SANITIZE_UNDEFINED)
 	set(SANITIZE ON)
 endif()
 
-include(FlagsMSVC)
+#include(FlagsMSVC)
 set(MSVC_RUNTIME "dynamic")
-configure_msvc_runtime()
-print_default_msvc_flags()
+#configure_msvc_runtime()
+#print_default_msvc_flags()
 
 add_definitions( -DVALVE_CRYPTO_ENABLE_25519 )
 if(WIN32)
@@ -36,6 +38,10 @@ option(Protobuf_USE_STATIC_LIBS "Build with a static Protobuf library" OFF)
 option(LIGHT_TESTS "Use smaller/shorter tests for simple integration testing (e.g. Travis)" OFF)
 option(GAMENETWORKINGSOCKETS_BUILD_EXAMPLES "Build the included example chat program" ON)
 option(GAMENETWORKINGSOCKETS_BUILD_TESTS "Build crypto, pki and network connection tests" ON)
+
+if(USE_STEAMWEBRTC)
+	add_definitions(-DSTEAMNETWORKINGSOCKETS_ENABLE_ICE -DSTEAMNETWORKINGSOCKETS_PARTNER)
+endif(USE_STEAMWEBRTC)
 
 #
 # Primary crypto library (for AES, SHA256, etc)

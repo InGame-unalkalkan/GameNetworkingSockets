@@ -540,11 +540,7 @@ int CICESession::GetPing()
 {
 	if ( !ice_transport_ )
 		return -1;
-	absl::optional<int> rtt;
-	auto val = ice_transport_->GetRttEstimate();
-	if (val) {
-		rtt = val.value();
-	}
+	absl::optional<int> rtt = ice_transport_->GetRttEstimate();
 	return ( rtt ) ? *rtt : -1;
 }
 
