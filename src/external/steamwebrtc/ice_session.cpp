@@ -44,9 +44,9 @@ namespace rtc
 
 extern "C"
 {
-	extern void (*g_fnWriteEvent_setsockopt)( int slevel, int sopt, int value );
-	extern void (*g_fnWriteEvent_send)( int length );
-	extern void (*g_fnWriteEvent_sendto)( void *addr, int length );
+	static void (*g_fnWriteEvent_setsockopt)( int slevel, int sopt, int value ) = nullptr;
+	static void (*g_fnWriteEvent_send)( int length ) = nullptr;
+	static void (*g_fnWriteEvent_sendto)( void *addr, int length ) = nullptr;
 }
 
 extern "C"
