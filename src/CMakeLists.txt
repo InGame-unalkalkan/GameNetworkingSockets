@@ -271,8 +271,20 @@ macro(gamenetworkingsockets_common GNS_TARGET)
 		CXX_STANDARD 14
 		)
 
-	set_property(TARGET ${GNS_TARGET} PROPERTY
-		MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+	if(MSVC)
+		# Default to statically-linked runtime.
+		if("${MSVC_RUNTIME}" STREQUAL "")
+			set(MSVC_RUNTIME "static")
+		endif()
+		
+		if(${MSVC_RUNTIME} STREQUAL "static")
+			set_property(TARGET ${GNS_TARGET} PROPERTY
+				MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+		else()
+			set_property(TARGET ${GNS_TARGET} PROPERTY
+				MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+		endif()
+	endif()
 
 endmacro()
 

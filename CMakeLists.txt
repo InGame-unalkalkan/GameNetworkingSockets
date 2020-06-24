@@ -17,10 +17,7 @@ if(SANITIZE_ADDRESS OR SANITIZE_THREAD OR SANITIZE_MEMORY OR SANITIZE_UNDEFINED)
 	set(SANITIZE ON)
 endif()
 
-#include(FlagsMSVC)
 set(MSVC_RUNTIME "dynamic")
-#configure_msvc_runtime()
-#print_default_msvc_flags()
 
 add_definitions( -DVALVE_CRYPTO_ENABLE_25519 )
 if(WIN32)
